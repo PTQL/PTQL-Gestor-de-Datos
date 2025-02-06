@@ -17,7 +17,7 @@ public class UbicacionConstancias {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column
+	@Column( columnDefinition = "LONGTEXT" )
 	private String ubicacion;
 	
 }

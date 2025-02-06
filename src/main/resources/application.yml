@@ -4,7 +4,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        default_schema : railway
+        default_schema : ptql
         dialect : org.hibernate.dialect.MySQLDialect
         format_sql : true
   datasource:

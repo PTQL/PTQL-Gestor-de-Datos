@@ -14,3 +14,8 @@ spring:
     password: MUgDBaqJwlXqTpWVskNwzMeDWvYriXOI
 server:
   port: 8081
+
+api:
+  dni:
+    url: "https://api.apis.net.pe/v1/dni"
+    token: "apis-token-11385.NY0mPBbdLdYOVIDVR8zBj1YGTRAQuwfu"

@@ -56,7 +56,13 @@
         <label class="form-check-label" for="darkModeSwitch">Modo Oscuro</label>
     </div>
     <a href="/generar_voluntario" class="btn btn-primary">Generar Voluntario</a>	
-    <a href="/herramienta_lectorTexto" class="btn btn-primary">Registrar Varios Voluntarios</a>	
+    <a href="/herramienta_lectorTexto" class="btn btn-primary">Registrar Varios Voluntarios</a>
+    <form id="exportForm">
+        <label for="ruta">Ruta de almacenamiento:</label>
+        <input type="text" id="ruta" name="ruta" placeholder="Ingrese la ruta" required>
+        <button type="submit">Exportar Excel</button>
+    </form>
+
     <a href="/" class="btn btn-secondary">Regresar</a>	
 </div>
 <div class="container mt-5">
@@ -75,7 +81,7 @@
             <tr th:each="voluntario : ${listaVoluntarios}">
                 <td th:text="${voluntario.dni}"></td>
                 <td th:text="${voluntario.nombre}"></td>
-                <td th:if="${voluntario.participante.size() == 0}" ><a>AÃ±adir Participacion</a></td>
+                <td th:if="${voluntario.participante.size() == 0}" ><a>Añadir Participacion</a></td>
                 <td th:if="${voluntario.participante.size() >= 1}" ><a>Ver participaciones</a></td>
                 <td th:text="${voluntario.estado ? 'Activo' : 'Inactivo' }"></td>
                 <td>
@@ -95,6 +101,30 @@
 
     document.getElementById('darkModeSwitch').addEventListener('change', function () {
         document.body.classList.toggle('dark-mode', this.checked);
+    });
+</script>
+<script>
+    document.getElementById("exportForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const ruta = document.getElementById("ruta").value;
+
+        fetch(`/api/voluntarios/export?ruta=${encodeURIComponent(ruta)}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.blob();
+                }
+                throw new Error("Error al generar el archivo");
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "voluntarios.xlsx";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            })
+            .catch(error => console.error(error));
     });
 </script>
 </html>

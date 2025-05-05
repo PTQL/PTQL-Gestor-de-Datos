@@ -13,7 +13,7 @@
     <form action="/guardar_actividad" method="post" th:object="${actividad}">
 		
         <!-- Campo Id de Actividad -->
-        <div class="mb-3 form-group"  >
+        <div class="mb-3 form-group"  style="visibility: hidden">
             <label for="idActividad" class="form-label">Id de Actividad</label>
             <input type="text" th:field="${actividad.Id}" class="form-control" id="idActividad" name="idActividad" readonly>
         </div>
@@ -48,7 +48,7 @@
         </div>
         
         <!-- Campo Estado-->
-        <div class="mb-3 form-group"  >
+        <div class="mb-3 form-group"  style="visibility: hidden" >
             <label for="estado" class="form-label">Estado</label>
             <input type="checkbox" checked th:field="${actividad.estado}" class="form-check" id="estado" name="estado"  >
         </div>

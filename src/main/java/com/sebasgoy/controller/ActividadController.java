@@ -115,26 +115,16 @@ public class ActividadController {
 	public String eliminar_actividad(@PathVariable("id") Long id,Model model  ){
 		try {
 			Actividad actividad =  actividadService.findById(id);
-			
 			participanteService.deleteListOfParticipante(actividad.getParticipante());
-			
 			System.out.println(Mensajes.success("Participacion", "Eliminacion"));
 			model.addAttribute("mensaje", Mensajes.success("Participacion", "Eliminacion"));
-			
-			
 			actividadService.deleteActividad(actividad);
-			
-			
 			System.out.println(Mensajes.success("Actividad", "Eliminacion"));
 			model.addAttribute("mensaje", Mensajes.success("Actividad", "Eliminacion"));
-			
-			
 		} catch (Exception e) {
 			System.out.println(Mensajes.error("ACTIVIDAD", "REGISTRO").concat(e.toString()));
 			model.addAttribute("mensaje", Mensajes.error("ACTIVIDAD", "REGISTRO").concat(e.toString()) );
 		}
-		
-		
 		return "redirect:/dashboard_actividad";
 		
 	}
@@ -146,7 +136,6 @@ public class ActividadController {
 	        HttpServletRequest request,
 	        Model model) {
 	    String pagina_anterior = request.getHeader("referer");
-		//TODO generar carpeta automaticamente
 	    try {
 	        Actividad actividad = actividadService.findById(idActividad);
 			path = ubiConstanciasService.validarPath(path,actividad);
@@ -154,8 +143,10 @@ public class ActividadController {
 					participanteService.getLibresFromListParticipante(idActividad)
 			);
 	        List<PlantillaActividadDto> listPlantillaDto = PlantillaParser.listParticipanteToPlantillaDtoActividad(lstVoluntarios, actividad);
-	        for (PlantillaActividadDto plantillaDto : listPlantillaDto) {
-
+			System.out.println("Ingresando a generador de plantilla");
+			System.out.println(listPlantillaDto.size());
+			for (PlantillaActividadDto plantillaDto : listPlantillaDto) {
+				System.out.println("Ingresando a iterador de plantilla");
 	            Plantillas.convertirHTMLaPDF(
 						Plantillas.GenerarPlantillaActividad(plantillaDto),
 						path + "/" + plantillaDto.getVoluntario().getDni()+ ".pdf");

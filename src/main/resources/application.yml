@@ -9,8 +9,8 @@ spring:
         format_sql : true
   datasource:
     driver-class-name : com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://monorail.proxy.rlwy.net:23916/railway?useSSL=false&serverTimeZone=UTC
+    url: jdbc:mysql://roundhouse.proxy.rlwy.net:30232/ptql_bof
     username: root
-    password: MUgDBaqJwlXqTpWVskNwzMeDWvYriXOI
+    password: vhwWkwPLnnnULXZBgyeKatElPGGVsPYQ
 server:
   port: 8081

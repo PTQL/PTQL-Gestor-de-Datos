@@ -87,7 +87,6 @@
 							<tr th:each="participante : ${actividad.participante}">
 								<td th:text="${participante.voluntario.dni}"></td>
 								<td th:text="${participante.voluntario.nombre}"></td>
-								<td th:text="${participante.tipoParticipacion.descripcionParticipacion}"></td>
 								<td th:text="${participante.isParticipant} ? 'Participo' : 'No Participó' "></td>
 								<td>
 									<a th:href="@{/change_participacion/}+${participante.id}" class="btn btn-sm btn-secondary mb-1 mr-3">Cambiar Participación</a>

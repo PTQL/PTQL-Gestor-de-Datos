@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class Plantillas {
-    private static final String urlImg = "https://i.postimg.cc/L8wxNcQT/CONSTANCIA-DE-PARTICIPACI-N-ACTUALIZADA-2.png";
+    //private static final String urlImg = "https://i.postimg.cc/L8wxNcQT/CONSTANCIA-DE-PARTICIPACI-N-ACTUALIZADA-2.png";
+    private static final String urlImg = "https://i.postimg.cc/2y48m9vh/SOA-PTQL.png";
+
     public static String GenerarPlantillaActividad(PlantillaActividadDto plantillaDto) {
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
@@ -43,9 +45,12 @@ public class Plantillas {
                 "        .verde{\n" +
                 "            color:#67A234\n" +
                 "        }\n" +
+                "        .azul{\n" +
+                "            color:#229fbb\n" +
+                "        }\n" +
                 "        .titulo2{\n" +
                 "            position: absolute;\n" +
-                "            width: 413.4px;\n" +
+                "            width: 420.4px;\n" +
                 "            height: 37.6px;\n" +
                 "            left: 773.6px ;\n" +
                 "            top: 419px;\n" +
@@ -119,10 +124,10 @@ public class Plantillas {
                 "    <div class=\"fondo\">\n" +
                 "    <img class=\"img_fondo\" src=\""+urlImg+"\"></img>"+
                 "        <div class=\"titulo1\">\n" +
-                "            <p>La ONG <span class=\"verde\">\"Perú Te Quiero Limpio\"</span> dedicada a la preservación del medio ambiente</p>\n" +
+                "            <p>La ONG <span class=\"verde\">\"Perú Te Quiero Limpio\"</span> en alianza con la ONG <span class=\"azul\" >\"SOA\"</span> </p>\n" +
                 "        </div>\n" +
                 "        <div class=\"titulo2\">\n" +
-                "            <p>Otorga esta constancia a </p>\n" +
+                "            <p>Otorgan esta constancia a </p>\n" +
                 "        </div>"+
                 "        <div class=\"NombreVoluntario\">\n" +
                 "            <p>" + plantillaDto.getVoluntario().getNombre() + "</p>\n" +

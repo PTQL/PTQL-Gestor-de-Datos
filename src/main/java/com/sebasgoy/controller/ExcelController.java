@@ -55,36 +55,36 @@ public class ExcelController {
             }        	
 		}else if(action.equals("insertarVoluntario")) {
 			try {
-			    if (Boolean.TRUE.equals(participanteService.isValid(voluntarioResponse))) {
-			        Actividad actividad = actividadService.findByIdOptional(idActividad)
-							.orElseThrow(() -> new EntityNotFoundException("Actividad con ID " + idActividad + " no encontrada."));
+                if (!Boolean.TRUE.equals(participanteService.isValid(voluntarioResponse))) {
+                    throw new InvalidMidiDataException("Datos invalidos en el Excel response , revisar gestor ");
+                } else {
+                    Actividad actividad = actividadService.findByIdOptional(idActividad)
+                            .orElseThrow(() -> new EntityNotFoundException("Actividad con ID " + idActividad + " no encontrada."));
 
-			        for (Voluntario voluntario: voluntarioResponse.getListVoluntarioValido()) {
-						System.out.println("Iteracion para :"+voluntario.toString());
-						// Validar duplicación con DNI
-						if ( !voluntarioService.validarExistencia(voluntario)) {
-							voluntarioService.saveVoluntario(voluntario);
-						}else {
-							voluntarioService.persistirVoluntario(voluntario);
-						}
+                    for (Voluntario voluntario: voluntarioResponse.getListVoluntarioValido()) {
+                        System.out.println("Iteracion para :"+voluntario.toString());
 
-						if (!participanteService.existeParticipanteParaVoluntarioYActividad( voluntario.getId(),actividad.getId())) {
-							Participante participante = participanteService.crearParticipante(actividad.getId(), voluntario.getId(),Modalidades.LIBRE,true);
-							participanteService.saveParticipante(participante);
-							System.out.println("Registro de participante Ok :" + participante.toString());
-						} else {
-							Participante participante = participanteService.findByDniAndActividad(voluntario.getDni(),actividad);
-							participante.setIsParticipant(true);
-							participanteService.saveParticipante(participante);
-							System.out.println("Participante Existe");
-						}
-					}
 
-					return "redirect:/info_actividad/" + idActividad;
-			    } else {
-					throw new InvalidMidiDataException("Datos invalidos en el Excel response , revisar gestor ");
-			    }
-			} catch (Exception e) {
+                        if ( !voluntarioService.validarExistencia(voluntario)) {
+                            voluntarioService.saveVoluntario(voluntario);
+                        }else {
+                            voluntarioService.persistirVoluntario(voluntario);
+                        }
+
+                        if (!participanteService.existeParticipanteParaVoluntarioYActividad( voluntario.getId(),actividad.getId())) {
+                            Participante participante = participanteService.crearParticipante(actividad.getId(), voluntario.getId(),Modalidades.LIBRE,true);
+                            participanteService.saveParticipante(participante);
+                            System.out.println("Registro de participante Ok :" + participante.toString());
+                        } else {
+                            Participante participante = participanteService.findByDniAndActividad(voluntario.getDni(),actividad);
+                            participante.setIsParticipant(true);
+                            participanteService.saveParticipante(participante);
+                            System.out.println("Participante Existe");
+                        }
+                    }
+                    return "redirect:/info_actividad/" + idActividad;
+                }
+            } catch (Exception e) {
 			    model.addAttribute("result", "Error processing the Excel file." + e.toString());
 			    System.out.println("Error processing the Excel file." + e.toString());
 			}        	

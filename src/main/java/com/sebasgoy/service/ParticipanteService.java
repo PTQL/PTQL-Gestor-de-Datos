@@ -42,6 +42,9 @@ public class ParticipanteService {
     
     public void saveVoluntariosToActividad(List<Long> ListIdVoluntarios, Long idActividad,Long idModalidad,Boolean isParticipants ) {
         System.out.println("Guardando lista de voluntarios en una actividad");
+        if (!tipoParticipacionService.existsById(idModalidad)) {
+            throw new IllegalArgumentException("El tipo de participación con ID " + idModalidad + " no existe.");
+        }
         for (Long idVoluntario : ListIdVoluntarios) {
 			iParticipanteRepository.save(
 					Participante.builder()
@@ -51,7 +54,12 @@ public class ParticipanteService {
 					.idTipoParticipacion(idModalidad)
 					.build()
 			);
-		}
+            System.out.println("Guardando participante con: " +
+                    "VoluntarioID=" + idVoluntario +
+                    ", ActividadID=" + idActividad +
+                    ", TipoParticipacionID=" + idModalidad);
+
+        }
     }
     
     public List<Participante> saveVoluntariosToActividadAndGetParticipantes(List<Voluntario> ListIdVoluntarios, Long idActividad,Long idModalidad) {

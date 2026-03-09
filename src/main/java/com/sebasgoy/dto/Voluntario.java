@@ -29,6 +29,8 @@ public class Voluntario {
 	private boolean estado = false;
 	@Column(name="numero")
 	private String telefono;
+	@Column(name = "ubicacion_actividad", nullable = true)
+	private String ubicacionExcel;
 
 	@OneToMany(mappedBy = "voluntario" )
 	private List<Participante> participante;
@@ -36,4 +38,8 @@ public class Voluntario {
 	public void changeEstate(){
     	setEstado( !estado);
     }
+
+	//para modificar la ubicacion de las constancias sin alterar estructura de bd
+	//@Transient
+	//private String ubicacionExcel; // valor por voluntario, solo en memoria
 }

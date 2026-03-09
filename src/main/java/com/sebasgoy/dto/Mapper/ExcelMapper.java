@@ -40,6 +40,7 @@ public class ExcelMapper {
                 // TELEFONO       -> 3
                 // NOMBRE         -> 4
                 // EDAD:          -> 5
+                // UBICACION      -> 6
                 // Terminos y condiciones - */
                 Voluntario voluntario = new Voluntario();
                 voluntario.setEstado(true);
@@ -49,6 +50,11 @@ public class ExcelMapper {
                 voluntario.setTelefono(getStringFromCell(fila,3));
                 voluntario.setNombre(getStringFromCell( fila,4));
                 voluntario.setEdad(getStringFromCell( fila,5));
+                // Asegúrate de que este valor no sea null
+                String ubicacion = getStringFromCell(fila, 6);
+                voluntario.setUbicacionExcel(ubicacion != null ? ubicacion.trim() : null);
+                //log
+                System.out.println("ubicacion(excel) en excel mapper: "+voluntario.getUbicacionExcel());
 
                 if (areVoluntarioFieldsValid(voluntario)) {
                 	System.out.println(voluntario);

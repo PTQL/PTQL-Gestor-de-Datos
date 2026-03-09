@@ -76,7 +76,7 @@ public class Tools {
 
 		return libro.getSheetAt(0).iterator();
 	}
-
+//validacion de voluntario
 	public static boolean areVoluntarioFieldsValid(Voluntario voluntario) {
 		return isStringNotBlank(voluntario.getNombre()) &&
 				isStringNotBlank(voluntario.getDni());

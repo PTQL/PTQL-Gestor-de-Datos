@@ -153,8 +153,24 @@ public class ActividadController {
 			List<Voluntario> lstVoluntarios =voluntarioService.getListVoluntarioFromListParticipante(
 					participanteService.getLibresFromListParticipante(idActividad)
 			);
+			// Obtener la ubicación de la actividad (para el caso de los voluntarios sin ubicación en el Excel)
+			String ubicacionActividad = actividad.getUbicacionActividad();
+
 	        List<PlantillaActividadDto> listPlantillaDto = PlantillaParser.listParticipanteToPlantillaDtoActividad(lstVoluntarios, actividad);
 	        for (PlantillaActividadDto plantillaDto : listPlantillaDto) {
+
+				// Imprimir para depurar y verificar que estamos usando la ubicación correcta
+				System.out.println("Ubicación de la actividad (default): " + ubicacionActividad);
+				System.out.println("Ubicación del voluntario (Excel): " + plantillaDto.getVoluntario().getUbicacionExcel());
+
+				// Si el voluntario tiene una ubicación en el Excel, reemplazar la ubicación de la actividad
+				if (plantillaDto.getVoluntario().getUbicacionExcel() != null && !plantillaDto.getVoluntario().getUbicacionExcel().isEmpty()) {
+					plantillaDto.setUbicacionActividad(plantillaDto.getVoluntario().getUbicacionExcel());  // Reemplazar con la del Excel
+					System.out.println("Ubicación modificada (voluntario Excel): " + plantillaDto.getUbicacionActividad());
+				} else {
+					plantillaDto.setUbicacionActividad(ubicacionActividad);  // Si no hay ubicación en el Excel, mantener la de la actividad
+					System.out.println("Ubicación de la actividad (sin modificación): " + plantillaDto.getUbicacionActividad());
+				}
 
 	            Plantillas.convertirHTMLaPDF(
 						Plantillas.GenerarPlantillaActividad(plantillaDto),
@@ -165,8 +181,5 @@ public class ActividadController {
 	    }
 	    return "redirect:" + pagina_anterior;
 	}
-
-
-
 
 }

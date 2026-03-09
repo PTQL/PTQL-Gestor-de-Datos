@@ -8,6 +8,7 @@ import com.sebasgoy.dto.request.PlantillaActividadDto;
 import com.sebasgoy.dto.request.PlantillaModuloDto;
 import com.sebasgoy.dto.response.StatusVoluntarioModulo;
 import com.sebasgoy.util.Tools;
+import jakarta.servlet.ServletOutputStream;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ public class PlantillaParser {
     }
     public static List<PlantillaActividadDto> listParticipanteToPlantillaDtoActividad(List<Voluntario> listVoluntarios , Actividad actividad) {
         List<PlantillaActividadDto> dtos = new ArrayList<>();
+        System.out.println("utilizando los dtos para generar plantilla");
         String fechaActividad = PlantillaParser.parserFechaActividad(actividad.getFechaActividad());
         String fechaGeneralActividad = PlantillaParser.parserFechaGeneralActividad(actividad.getFechaActividad());
         String horasActividad = String.valueOf( actividad.obtenerDuracionActividad());
@@ -36,6 +38,8 @@ public class PlantillaParser {
         String ubicacionActividad = actividad.getUbicacionActividad();
         try {
             for (Voluntario voluntario : listVoluntarios) {
+                // Si el voluntario tiene una ubicacion personalizada en Excel, usarla; de lo contrario, usar la de la actividad
+                String ubicacion = (voluntario.getUbicacionExcel()!=null && !voluntario.getUbicacionExcel().isEmpty())? voluntario.getUbicacionExcel() : ubicacionActividad;
                 dtos.add(
                         PlantillaActividadDto.builder()
                                 .fechaActividad(fechaActividad)
@@ -43,9 +47,11 @@ public class PlantillaParser {
                                 .horasActividad(horasActividad)
                                 .nombreActividad(nombreActividad)
                                 .voluntario(voluntario)
-                                .ubicacionActividad(ubicacionActividad)
+                                .ubicacionActividad(ubicacion)
                                 .build()
                 );
+                System.out.print("Voluntario añadido a la plantilla: " + voluntario.getNombre() + "," + voluntario.getUbicacionExcel()+"\n");
+                System.out.print("Ubicación usada: " + ubicacion + "\n");
             }
             System.out.println("Parseo de entidades a PlantillaDTO ok");
         }catch (Exception e){

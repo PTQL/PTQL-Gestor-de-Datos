@@ -9,8 +9,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class Plantillas {
-    private static final String urlImg = "https://i.postimg.cc/L8wxNcQT/CONSTANCIA-DE-PARTICIPACI-N-ACTUALIZADA-2.png";
+    private static final String urlImg = "https://i.postimg.cc/rpsXwR6k/cpnstancia-PTQL.png";
+    private static final String urlImgPTQLsoaOIIDE = "https://i.postimg.cc/MTLfyvCj/Plantilla-PTQL-SOA-OIID.png";
+    private static final String urlImgPTQLalmacanina = "https://i.postimg.cc/XJBq5pCR/PTQL-ALMACANINA.png";
+    private static final String urlImgPTQLbrigadaForestal = "https://i.postimg.cc/Y9cnZGqx/PTQL-BRIGADAFORESTAL.png";
+    private static final String urlPTQLsoa = "https://i.postimg.cc/TwJdMhpm/PTQL-SOA.png";
     public static String GenerarPlantillaActividad(PlantillaActividadDto plantillaDto) {
+        // Formatea la ubicación para que los guiones se cambien por comas
+        //String ubicacionActividad = plantillaDto.getUbicacionActividad()
+        //        .replace("-", ","); // Cambiar todos los guiones por comas
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
                 "<head>\n" +
@@ -31,7 +38,7 @@ public class Plantillas {
                 "            width: 1335.6px;\n" +
                 "            height: 40.3px;\n" +
                 "            left: 292.2px ;\n" +
-                "            top: 376.3px;\n" +
+                "            top: 336.2px;\n" +
                 "        }\n" +
                 "\n" +
                 "        .titulo1 p{\n" +
@@ -43,12 +50,15 @@ public class Plantillas {
                 "        .verde{\n" +
                 "            color:#67A234\n" +
                 "        }\n" +
+                "        .azul{\n" +
+                "            color:#2B5F8A\n" +
+                "        }\n" +
                 "        .titulo2{\n" +
                 "            position: absolute;\n" +
                 "            width: 413.4px;\n" +
                 "            height: 37.6px;\n" +
                 "            left: 773.6px ;\n" +
-                "            top: 419px;\n" +
+                "            top: 412px;\n" +
                 "        }\n" +
                 "        .titulo2 p{\n" +
                 "            margin: 0;\n" +
@@ -61,7 +71,7 @@ public class Plantillas {
                 "            position: absolute;\n" +
                 "            width: 100%;\n" +
                 "            height: 62.1px;\n" +
-                "            top: 480.9px;\n" +
+                "            top: 492.9px;\n" +
                 "        }\n" +
                 "\n" +
                 "       .img_fondo{\n"+
@@ -83,19 +93,21 @@ public class Plantillas {
                 "            width: 1672.4px;\n" +
                 "            height: 106.4px;\n" +
                 "            left: 144.1px;\n" +
-                "            top: 573.7px;\n" +
+                "            top: 584.7px;\n" +
                 "        }\n" +
                 "\n" +
                 "        .DescripcionVoluntario p {\n" +
                 "            margin: 0;\n" +
                 "            font-family: 'Manjari', sans-serif;\n" +
+                "            text-align: justify;\n" +
+                "            text-justify: inter-word;\n" +
                 "            font-size: 31px;\n" +
                 "        }\n" +
                 "\n" +
                 "        .FechaGeneralActividad {\n" +
                 "            position: absolute;\n" +
-                "            left: 447.5px;\n" +
-                "            top: 768.3px;\n" +
+                "            left: 410.5px;\n" +
+                "            top: 784.3px;\n" +
                 "        }\n" +
                 "\n" +
                 "        .FechaGeneralActividad p {\n" +
@@ -129,6 +141,7 @@ public class Plantillas {
                 "        </div>\n" +
                 "        <div class=\"DescripcionVoluntario\">\n" +
                 "            <p>En reconocimiento a su arduo trabajo y valioso aporte personal como voluntario para el éxito de la actividad <span class=\"nombreActividad\">" + plantillaDto.getNombreActividad() + "</span> <span style=\"font-weight: 700;\">, realizada el </span><span class=\"fechaActividad\">" + plantillaDto.getFechaActividad() + "</span> en <span class=\"ubicacionActividad\">" + plantillaDto.getUbicacionActividad() + "</span>. La constancia a continuación se emite por un total de <span class=\"horasActivdad\">" + plantillaDto.getHorasActividad() + "</span> horas de trabajo voluntario.</p>\n" +
+                //"                \"            <p>En reconocimiento a su arduo trabajo y valioso aporte personal como voluntario para el éxito de la actividad por el <span class=\\\"nombreActividad\\\">\" + plantillaDto.getNombreActividad() + \"</span> <span style=\\\"font-weight: 700;\\\">, realizada el </span><span class=\\\"fechaActividad\\\">\" + plantillaDto.getFechaActividad() + \"</span> en <span class=\\\"ubicacionActividad\\\">\" + ubicacionActividad + \"</span>. La constancia a continuación se emite por un total de <span class=\\\"horasActivdad\\\">\" + plantillaDto.getHorasActividad() + \"</span> horas de trabajo voluntario.</p>\\n\" +\n"
                 "        </div>\n" +
                 "        <div class=\"FechaGeneralActividad\">\n" +
                 "            <p>" + plantillaDto.getFechaGeneralActividad() + "</p>\n" +

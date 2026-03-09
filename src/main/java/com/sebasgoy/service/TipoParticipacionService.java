@@ -44,5 +44,8 @@ public class TipoParticipacionService {
 		return iTipoParticipacionRepository.save(tipoParticipacion);
 	}
 
+	public boolean existsById(Long id) {
+		return iTipoParticipacionRepository.existsById(id);
+	}
 
 }

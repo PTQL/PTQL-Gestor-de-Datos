@@ -46,6 +46,11 @@ public class ExcelController {
 		System.out.println("Solicitud de excel Mapper enviado");
 		VoluntarioResponse voluntarioResponse = ExcelMapper.DevolverEntidadFromExcel(file,VoluntarioResponse.class);
 		System.out.println("Solicitud de excel Mapper recibido");
+		// Verificar los voluntarios después de la asignación de ubicacionExcel
+		for (Voluntario voluntario : voluntarioResponse.getListVoluntarioValido()) {
+			System.out.println("Ubicación del voluntario (Excel) antes de pasar a plantilla: " + voluntario.getUbicacionExcel());
+		}
+
 		if (action.equals("verEstado")) {
         	try {
     			model.addAttribute("voluntarioResponse", voluntarioResponse);
@@ -62,11 +67,18 @@ public class ExcelController {
 
 			        for (Voluntario voluntario: voluntarioResponse.getListVoluntarioValido()) {
 						System.out.println("Iteracion para :"+voluntario.toString());
+						System.out.println("Ubicación del voluntario antes de insertarlo en la base de datos: " + voluntario.getUbicacionExcel());
+
 						// Validar duplicación con DNI
 						if ( !voluntarioService.validarExistencia(voluntario)) {
 							voluntarioService.saveVoluntario(voluntario);
 						}else {
 							voluntarioService.persistirVoluntario(voluntario);
+						}
+						// Asegurarse de que la ubicación está siendo asignada correctamente
+						if (voluntario.getUbicacionExcel() != null && !voluntario.getUbicacionExcel().isEmpty()) {
+							System.out.println("Ubicación del voluntario (Excel): " + voluntario.getUbicacionExcel());
+							// Guardar o actualizar el voluntario correctamente
 						}
 
 						if (!participanteService.existeParticipanteParaVoluntarioYActividad( voluntario.getId(),actividad.getId())) {

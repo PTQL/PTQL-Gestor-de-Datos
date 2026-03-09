@@ -4,7 +4,8 @@ import com.sebasgoy.dto.Voluntario;
 
 public class ValoresPersonaRegex {
 
-    public static final String DNI = "^([0-9]{8})$";
+    public static final String DNI = "^([\\p{L}0-9,\\s]{0,100})$";
+    //public static final String DNI = "^[a-zA-Z0-9,]{8,9}$";
     public static final String CARNET_EXTRANJERIA = "^([0]{2}[0-9]{7})$";
 
     public static final String EDAD = "^(\\d{2})\\s?(?:años|AÑOS|años.)?$";
@@ -12,7 +13,7 @@ public class ValoresPersonaRegex {
 
     //public static final String CELULAR_GLOBAL = "";
     public static final String CORREO = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-    public static final String NOMBRE = "^([a-zA-Z\\s]{0,100})$";
+    public static final String NOMBRE = "^[\\p{L}0-9,\\s]{0,100}$";
 
     public static boolean isValidVoluntario(Voluntario voluntario){
         return  voluntario.getDni().matches(ValoresPersonaRegex.DNI) &&
